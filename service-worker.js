@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "stjernenatt-v1";
+const CACHE_NAME = "stjernenatt-v7";
 const ASSETS = ["/", "/index.html", "/manifest.webmanifest", "/style.css", "/app.js", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/maskable-512.png"];
 
 self.addEventListener("install", (e) => {
