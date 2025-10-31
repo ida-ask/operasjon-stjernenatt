@@ -1,0 +1,78 @@
+
+:root{
+  --bg:#07111f;
+  --panel:#0d1b2a;
+  --ink:#e6f2ff;
+  --muted:#9bb6cf;
+  --accent:#64b5f6; /* isblå */
+  --line:#16324a;
+}
+
+/* Bakgrunn med subtil HUD-grid */
+html,body{
+  margin:0;padding:0;
+  color:var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 50% -200px, rgba(100,181,246,.12), transparent 70%),
+    url('/bg/hud-grid.png') center/cover repeat,
+    url('/bg/frost-background.jpg') center/cover no-repeat,
+    linear-gradient(180deg, var(--bg), #0b1220);
+}
+
+/* Header */
+.topbar{
+  position:sticky;top:0;
+  background:rgba(7,17,31,.75);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.25);
+}
+.topbar h1{ margin:0; letter-spacing:.04em; font-weight:800 }
+.sub{ color:var(--muted); letter-spacing:.14em; text-transform:uppercase }
+
+/* Cards */
+.grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px }
+@media(min-width:720px){ .grid{ grid-template-columns:repeat(6,1fr) } }
+.card{
+  position:relative; border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(13,27,42,.72), rgba(9,20,35,.72));
+  border-radius:20px; aspect-ratio:1/1; padding:14px;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.card:hover{ transform: translateY(-2px); box-shadow:0 16px 40px rgba(0,0,0,.35) }
+.card.locked{ opacity:.6; filter:grayscale(40%) }
+.badge{
+  display:inline-block; padding:4px 10px; border-radius:999px;
+  border:1px solid var(--line); background:rgba(255,255,255,.03);
+  color:var(--muted); font-size:12px; letter-spacing:.06em;
+}
+.card h3{ margin:0; font-size:16px }
+
+/* Modal */
+.modal{ background: rgba(2,6,23,.7); backdrop-filter: blur(6px); }
+.sheet{
+  max-width:760px; width:100%;
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(8,16,28,.9), rgba(7,17,31,.95));
+  border-radius:20px; padding:18px;
+  box-shadow: 0 20px 80px rgba(0,0,0,.45);
+}
+.close{ color:var(--muted) }
+
+.taskbox,.answerbox{
+  border:1px solid var(--line); border-radius:14px; padding:14px;
+  background: rgba(10,20,34,.65);
+}
+.answerbox button{
+  background: var(--accent); color:#052e2b;
+  border:none; padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer;
+  box-shadow: 0 6px 16px rgba(100,181,246,.25);
+}
+.answerbox button:active{ transform: translateY(1px) }
+
+.reward{ border:1px solid #1b3e66; background:#0b1c2d; color:#bde0fe }
+
+/* Footer */
+.foot{ color:var(--muted); border-top:1px solid var(--line) }
