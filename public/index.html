@@ -3,277 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ELVES Intelligence — HUMINT Terminal</title>
-  <meta name="theme-color" content="#f4f2ec" />
+  <title>ELVES Intelligence – HUMINT Access Portal</title>
+  <meta name="description" content="ELVES Intelligence – Feltportal for operative agenter (HUMINT)." />
+  <meta name="theme-color" content="#1c1c1c" />
+
+  <!-- iOS Home Screen Icon -->
+  <link rel="apple-touch-icon" href="icons/elves-logo.png" />
+  <meta name="apple-mobile-web-app-title" content="ELVES HUMINT" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Manifest -->
   <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Font & Styles -->
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css" />
-</head>
-<body>
-<header class="topbar">
-  <div class="container">
-    <h1>ELVES Intelligence</h1>
-    <p class="sub">HUMINT Terminal // Classified</p>
-  </div>
-</header>
 
-<main class="container">
-  <!-- Login -->
-  <section id="login" class="cardish">
-    <h2>Feltkode</h2>
-    <p class="muted">Skriv dagens feltkode for å åpne oppdrag og rapportskjema.</p>
-    <div class="row">
-      <div>
-        <label for="agentName">Kodenavn (valgfritt)</label>
-        <input id="agentName" placeholder="f.eks. NORDLYS">
-      </div>
-      <div>
-        <label for="dayCode">Dagens feltkode</label>
-        <input id="dayCode" placeholder="ELF1 / ELF2 / ...">
-      </div>
-    </div>
-    <div style="display:flex; gap:8px; margin-top:10px;">
-      <button id="doLogin">Åpne</button>
-      <button id="skipLogin" class="ghost" type="button">Jeg har allerede åpnet i dag</button>
-    </div>
-    <p id="loginMsg" class="muted" style="margin-top:6px;"></p>
-  </section>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --panel: #fffaf2;
+      --ink: #201d1a;
+      --accent: #b62d25;
+      --line: #d4ccc1;
+    }
 
-  <!-- Form -->
-  <section id="formWrap" class="cardish hidden">
-    <h2 id="formTitle">Dagens oppdrag</h2>
-    <p id="formBrief" class="muted">Skriv observasjoner og last opp bilder.</p>
-    <div class="row">
-      <div>
-        <label for="reportTitle">Tittel</label>
-        <input id="reportTitle" placeholder="Kort tittel på observasjon">
-      </div>
-      <div>
-        <label for="reportLocation">Sted</label>
-        <input id="reportLocation" placeholder="Hvor skjedde det?">
-      </div>
-    </div>
-    <label for="reportBody">Observasjoner (HUMINT)</label>
-    <textarea id="reportBody" placeholder="Hva har du sett, hørt eller funnet?"></textarea>
-    <label for="reportImages">Bilder (valgfritt)</label>
-    <input id="reportImages" type="file" accept="image/*" multiple>
-    <div id="thumbs" class="thumbs"></div>
-    <p class="muted">Bilder skaleres automatisk (maks 1600px) og lagres lokalt på enheten.</p>
-    <div style="display:flex; gap:8px; margin-top:12px;">
-      <button id="submitReport">Send rapport</button>
-      <button id="cancelReport" class="ghost" type="button">Lukk</button>
-    </div>
-    <p id="formMsg" class="muted" style="margin-top:6px;"></p>
-  </section>
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Special Elite', monospace;
+      margin: 0;
+      padding: 0;
+    }
 
-  <!-- History -->
-  <section id="history" class="cardish hidden">
-    <h2>Historikk</h2>
-    <div id="historyList" class="list"></div>
-  </section>
+    .hidden { display: none !important; }
 
-  <!-- Inbox -->
-  <section id="chat" class="cardish">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <h2>ELVES • Meldinger</h2>
-      <label class="muted" style="display:flex; gap:6px; align-items:center;">
-        <input type="checkbox" id="adminToolsToggle"> Vis adminverktøy
-      </label>
-    </div>
-    <p class="muted" id="chatInfo">Innboks lastes…</p>
-    <div id="inboxList" class="list" style="margin-top:10px;"></div>
+    .cardish {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 700px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
 
-    <!-- Agent to HQ (Netlify Forms) -->
-    <form name="agent-chat" method="POST" data-netlify="true" enctype="multipart/form-data" class="cardish" style="margin-top:14px;">
-      <input type="hidden" name="form-name" value="agent-chat" />
-      <input type="hidden" name="agent" id="chatAgentHidden" value="" />
-      <label for="chatMsg">Send melding (tekst)</label>
-      <textarea id="chatMsg" name="message" placeholder="Skriv status, spørsmål eller rapport…"></textarea>
-      <label for="chatFile">Legg ved fil (valgfritt)</label>
-      <input id="chatFile" name="file" type="file" accept="image/*,audio/*,video/*" />
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button type="submit">Send</button>
-        <button type="reset" class="ghost">Tøm</button>
-      </div>
-    </form>
-  </section>
-
-  <!-- Admin -->
-  <section id="admin" class="cardish hidden">
-    <h2>Forelder & Admin</h2>
-
-    <div class="cardish" style="margin-bottom:10px;">
-      <h3>Admin-lås</h3>
-      <div class="row">
-        <div>
-          <label>PIN</label>
-          <input id="admin_pin" placeholder="Admin PIN">
-        </div>
-      </div>
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button id="admin_unlock">Lås opp</button>
-        <button id="admin_lock" class="ghost">Lås</button>
-      </div>
-      <p id="admin_msg" class="muted" style="margin-top:6px;"></p>
-    </div>
-
-    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;">
-      <button id="exportAll" class="ghost">Eksporter alle rapporter (JSON)</button>
-      <button id="resetAll" class="ghost">Nullstill alt</button>
-      <button id="reloadInbox" class="ghost">Oppdater innboks</button>
-      <button id="viewQueue" class="ghost">Se kø</button>
-    </div>
-
-    <div class="cardish" style="margin-top:10px;">
-      <h3>Media-opplaster (til innboks)</h3>
-      <div class="row">
-        <div>
-          <label>Velg fil</label>
-          <input id="upl_file" type="file" accept="image/*,audio/*,video/*">
-        </div>
-        <div>
-          <label>PIN</label>
-          <input id="upl_pin" placeholder="Admin PIN">
-        </div>
-      </div>
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button id="upl_send">Last opp</button>
-      </div>
-      <p id="upl_msg" class="muted" style="margin-top:6px;"></p>
-    </div>
-
-    <div class="cardish" style="margin-top:10px;">
-      <h3>Legg til/oppdater melding i innboks</h3>
-      <div class="row">
-        <div>
-          <label>Melding-ID (for endring/sletting)</label>
-          <input id="a_id" placeholder="tom for ny melding">
-        </div>
-        <div>
-          <label>Fra</label>
-          <input id="a_from" placeholder="ELVES HQ">
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <label>Tittel (valgfritt)</label>
-          <input id="a_title" placeholder="Oppdrag 07 — …">
-        </div>
-        <div>
-          <label>Media type (image, audio, video, youtube, vimeo)</label>
-          <input id="a_mtype" placeholder="image">
-        </div>
-      </div>
-      <label>Meldingstekst</label>
-      <textarea id="a_text" placeholder="Skriv meldingen som skal vises i innboksen…"></textarea>
-      <div class="row">
-        <div>
-          <label>Media URL</label>
-          <input id="a_murl" placeholder="Lim inn URL fra opplaster / YouTube / Vimeo">
-        </div>
-        <div>
-          <label>Media caption (valgfritt)</label>
-          <input id="a_mcap" placeholder="Bildetekst…">
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <label>PIN</label>
-          <input id="a_pin" placeholder="Admin PIN">
-        </div>
-        <div>
-          <label>Tid (ms) (valgfritt — ellers nå)</label>
-          <input id="a_ts" type="number" placeholder="">
-        </div>
-      </div>
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button id="a_send">Publiser/oppdater</button>
-        <button id="a_delete" class="ghost">Slett med ID</button>
-      </div>
-      <p id="a_msg" class="muted" style="margin-top:6px;"></p>
-    </div>
-
-    <div class="cardish" style="margin-top:10px;">
-      <h3>Planlegg melding</h3>
-      <div class="row">
-        <div>
-          <label>Fra</label>
-          <input id="s_from" placeholder="ELVES HQ">
-        </div>
-        <div>
-          <label>Tittel (valgfritt)</label>
-          <input id="s_title" placeholder="Oppdrag 07 — …">
-        </div>
-      </div>
-      <label>Meldingstekst</label>
-      <textarea id="s_text" placeholder="Skriv meldingen som skal publiseres…"></textarea>
-      <div class="row">
-        <div>
-          <label>Media type (image, audio, video, youtube, vimeo)</label>
-          <input id="s_mtype" placeholder="image">
-        </div>
-        <div>
-          <label>Media URL</label>
-          <input id="s_murl" placeholder="Lim inn URL (fra opplaster / YouTube / Vimeo)">
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <label>Media caption (valgfritt)</label>
-          <input id="s_mcap" placeholder="Bildetekst…">
-        </div>
-        <div>
-          <label>Publiser (dato/tid)</label>
-          <input id="s_when" type="datetime-local">
-        </div>
-      </div>
-      <div class="row">
-        <div>
-          <label>Gjenta daglig</label>
-          <input id="s_daily" type="checkbox">
-        </div>
-        <div>
-          <label>PIN</label>
-          <input id="s_pin" placeholder="Admin PIN">
-        </div>
-      </div>
-      <div style="display:flex; gap:8px; margin-top:10px;">
-        <button id="s_schedule">Planlegg</button>
-      </div>
-      <p id="s_msg" class="muted" style="margin-top:6px;"></p>
-    </div>
-
-    <!-- Storage meter -->
-    <div class="cardish" style="margin-top:10px;">
-      <h3>Lagringsnivå (lokal)</h3>
-      <p class="muted" id="storageText">Beregner…</p>
-      <div id="storageBarWrap">
-        <div id="storageBar"></div>
-      </div>
-    </div>
-
-    <div id="queueList" class="list" style="margin-top:10px;"></div>
-  </section>
-</main>
-
-<footer class="foot" style="margin-top:20px;">
-  <div class="container">
-    <p>© <span id="yr"></span> ELVES INTELLIGENCE — HUMINT</p>
-  </div>
-</footer>
-
-<script src="/app.js"></script>
-<script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  if (new URLSearchParams(location.search).get('admin') === '1') {
-    document.getElementById('admin').classList.remove('hidden');
-    document.getElementById('history').classList.remove('hidden');
-  }
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/service-worker.js");
-    });
-  }
-</script>
-</body>
-</html>
+    button {
+      font-family: inherit;
+      border-radius: 6px;
