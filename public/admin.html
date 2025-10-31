@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ELVES Admin — Meldingskontroll</title>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="cardish">
+    <h2>ELVES ADMIN</h2>
+    <p>Publiser meldinger til agenten, evt. planlegg med tidspunkt.</p>
+    <div class="envBanner" id="envBanner"></div>
+  </header>
+
+  <section class="cardish" id="lock">
+    <h3>PIN nødvendig</h3>
+    <div class="row">
+      <input id="pin" placeholder="INBOX_PIN">
+      <button id="unlock">Lås opp</button>
+    </div>
+    <p id="lockMsg" class="warn"></p>
+  </section>
+
+  <section class="cardish hidden" id="panel">
+    <h3>Publiser melding (HQ → Agent)</h3>
+    <div class="row">
+      <input id="from" placeholder="Fra" value="ELVES HQ">
+      <input id="title" placeholder="Tittel (valgfritt)">
+    </div>
+    <textarea id="text" placeholder="Meldingstekst..."></textarea>
+
+    <details class="mediaBox">
+      <summary>Media (valgfritt)</summary>
+      <div class="row">
+        <select id="mediaType">
+          <option value="">Ingen</option>
+          <option value="image">Bilde (URL)</option>
+          <option value="audio">Lyd (URL)</option>
+          <option value="video">Video (URL)</option>
+          <option value="youtube">YouTube (URL)</option>
+          <option value="vimeo">Vimeo (URL)</option>
+        </select>
+        <input id="mediaUrl" placeholder="https://...">
+      </div>
+      <div class="row">
+        <input id="mediaThumb" placeholder="Thumbnail URL (valgfritt)">
+        <input id="mediaCaption" placeholder="Bildetekst (valgfritt)">
+      </div>
+    </details>
+
+    <h4>Planlegg publisering (valgfritt)</h4>
+    <div class="row">
+      <input id="publishAt" type="datetime-local">
+      <span class="muted">Lar agent-appen vise meldingen først når tidspunktet er nå/passert.</span>
+    </div>
+
+    <div class="row">
+      <button id="send">Publiser</button>
+      <button id="refresh" class="secondary">Oppdater liste</button>
+      <button id="logout" class="secondary">Logg ut</button>
+    </div>
+  </section>
+
+  <section class="cardish hidden" id="listWrap">
+    <h3>Alle meldinger (inkl. fremtidige)</h3>
+    <div id="list" class="small muted">Ingen meldinger enda.</div>
+  </section>
+
+  <footer class="cardish center small">
+    © 2025 ELVES INTELLIGENCE — Admin
+  </footer>
+
+  <script src="/admin.js"></script>
+</body>
+</html>
