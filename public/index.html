@@ -117,5 +117,20 @@
   </footer>
 
   <script src="/app.js"></script>
+
+  <!-- Netlify Forms: hidden skeleton used by JS submit -->
+<form name="agent-chat"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      enctype="multipart/form-data"
+      hidden>
+  <input type="hidden" name="form-name" value="agent-chat">
+  <input type="text" name="agent" value="">
+  <textarea name="message"></textarea>
+  <input type="file" name="file">
+  <input type="text" name="bot-field" value="">
+</form>
+
 </body>
 </html>
