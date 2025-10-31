@@ -6,181 +6,28 @@
 
   <title>Operasjon Stjernenatt — ELVES Intelligence</title>
   <meta name="description" content="ELVES Intelligence – Adventskalender mot Frosthånden (PWA)." />
-  <meta name="theme-color" content="#eaf4ee" />
+  <meta name="theme-color" content="#f4f2ec" />
 
   <!-- iOS PWA -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 
-  <!-- PWA -->
+  <!-- Manifest -->
   <link rel="manifest" href="/manifest.webmanifest" />
 
-  <!-- Base styles -->
-  <!-- Google Font: Cold War Dossier style -->
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <!-- Cold War dossier font -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 
+  <!-- Global styles -->
   <link rel="stylesheet" href="/style.css" />
-
-  <!-- Light HUD overrides (kun denne siden) -->
-  <style>
-    :root{
-      /* lys palett m/ grønn HUD-glød */
-      --bg:#eaf4ee;
-      --panel:#f5fbf7;
-      --ink:#0e1a12;
-      --muted:#385043;
-      --accent:#40d37a;
-      --line:#cfe6d8;
-    }
-
-    html,body{
-      color:var(--ink);
-      /* satellitt-kart-lignende hud bakgrunn */
-      background:
-        radial-gradient(1200px 600px at 50% -180px, rgba(64,211,122,.20), transparent 70%),
-        repeating-linear-gradient( to right, rgba(64,211,122,.08) 0 1px, transparent 1px 80px),
-        repeating-linear-gradient( to bottom, rgba(64,211,122,.08) 0 1px, transparent 1px 80px),
-        linear-gradient(180deg,#f7fcf9,#ecf6f1 60%, #eaf4ee);
-    }
-
-    .topbar{
-      background:rgba(247,252,249,.9);
-      border-bottom:1px solid var(--line);
-      box-shadow: 0 6px 24px rgba(20,40,30,.06);
-    }
-    .sub{ color:var(--muted) }
-
-    /* HERO */
-    .hero { position: relative; max-width: 980px; margin: 28px auto 18px; padding: 0 16px; }
-    .hero-wrap{
-      position:relative; overflow:hidden;
-      border:1px solid var(--line); border-radius:20px;
-      background: linear-gradient(180deg, rgba(245,251,247,.85), rgba(240,248,243,.9));
-      box-shadow: 0 20px 60px rgba(16,40,28,.08);
-    }
-    .hero-grid{
-      position:absolute; inset:0; pointer-events:none;
-      background-image:
-        radial-gradient(700px 420px at 70% -100px, rgba(64,211,122,.20), transparent 70%),
-        repeating-linear-gradient( to right, rgba(64,211,122,.08) 0 1px, transparent 1px 80px),
-        repeating-linear-gradient( to bottom, rgba(64,211,122,.08) 0 1px, transparent 1px 80px);
-      mask-image: radial-gradient(130% 130% at 50% -10%, #000, transparent);
-    }
-    .hero-inner{ position:relative; padding:22px; display:grid; gap:18px; }
-    @media (min-width: 900px){ .hero-inner{ grid-template-columns: 220px 1fr; align-items:center; } }
-
-    .seal{
-      display:flex; align-items:center; justify-content:center;
-      aspect-ratio:1/1; border-radius:16px; border:1px solid var(--line);
-      background: #ffffffaa; backdrop-filter: blur(4px);
-      box-shadow: inset 0 0 0 1px rgba(64,211,122,.20);
-    }
-    .seal svg{ width:72%; height:72%; color:#136b3b; }
-
-    .hero-text h1{ margin:0 0 6px; font-size:clamp(22px,2.8vw,30px); letter-spacing:.02em;}
-    .hero-text p{ margin:0; color:var(--muted) }
-    .hero-badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-    .chip{
-      padding:6px 10px; border:1px solid var(--line); border-radius:999px;
-      background:#ffffffa8; color:#1c3e30; font-size:12px; letter-spacing:.06em;
-      box-shadow: 0 0 0 1px rgba(64,211,122,.15);
-    }
-
-    /* Panel HUD */
-    .panel{ max-width:980px; margin:10px auto 0; padding:0 16px; color:#2c4a3b; font-size:14px; }
-    .panel .hud{
-      display:flex; flex-wrap:wrap; gap:10px;
-      border:1px solid var(--line); border-radius:14px;
-      background:#ffffffd8; padding:10px 12px;
-      box-shadow: 0 8px 30px rgba(16,40,28,.06);
-    }
-    .hud .item{
-      display:flex; align-items:center; gap:8px; padding:6px 10px;
-      border:1px solid var(--line); border-radius:10px; background:#ffffff;
-    }
-    .hud .dot{
-      width:8px; height:8px; border-radius:50%;
-      background: var(--accent); box-shadow: 0 0 14px rgba(64,211,122,.8);
-    }
-
-    /* Kort og modal arver fra style.css, men vi gjør dem lyse */
-    .card{
-      background: linear-gradient(180deg, #ffffff, #f5fbf7);
-      border:1px solid var(--line);
-      box-shadow: 0 10px 28px rgba(16,40,28,.06);
-    }
-    .card.locked{ filter: grayscale(10%); opacity:.7 }
-
-    .modal{ background: rgba(240,248,243,.75); backdrop-filter: blur(6px); }
-    .sheet{
-      background: linear-gradient(180deg, #ffffff, #f8fcfa);
-      border:1px solid var(--line); box-shadow: 0 20px 80px rgba(16,40,28,.10);
-    }
-    .taskbox,.answerbox{
-      background:#ffffff; border:1px solid var(--line);
-    }
-    .answerbox button{
-      background: var(--accent); color:#083a21; box-shadow: 0 8px 18px rgba(64,211,122,.25);
-    }
-    .reward{
-      border:1px solid #bfe9d0; background:#edf9f2; color:#0f3a24;
-    }
-
-    .foot{ color:#466957; border-top:1px solid var(--line); }
-  </style>
 </head>
 <body>
-  <!-- Topplinje -->
+  <!-- Topp -->
   <header class="topbar">
     <h1>Operasjon Stjernenatt</h1>
-    <p class="sub">ELVES Intelligence // Field UI (Light HUD)</p>
+    <p class="sub">ELVES INTELLIGENCE // CLASSIFIED DOSSIER</p>
   </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-wrap">
-      <div class="hero-grid"></div>
-      <div class="hero-inner">
-        <!-- Emblem (fjell + hånd) – kan erstattes med PNG/SVG -->
-        <div class="seal" aria-hidden="true">
-          <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Emblem">
-            <!-- Fjell -->
-            <path d="M18 180 L86 92 L114 126 L140 102 L238 180 Z" stroke="currentColor" stroke-width="8" fill="none" opacity=".9"/>
-            <!-- Hånd (stiliserte fingre) -->
-            <path d="M160 118 c12 -8 24 -8 28 10 v46 c0 8 -6 14 -14 14 h-10 c-8 0 -14 -6 -14 -14 v-32" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" opacity=".9"/>
-            <path d="M142 126 c10 -6 22 -6 26 8 v38 c0 8 -6 14 -14 14 h-8 c-8 0 -14 -6 -14 -14 v-26" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" opacity=".9"/>
-            <path d="M124 134 c10 -6 22 -6 26 8 v30 c0 8 -6 14 -14 14 h-8 c-8 0 -14 -6 -14 -14 v-18" stroke="currentColor" stroke-width="8" fill="none" stroke-linecap="round" opacity=".9"/>
-            <!-- Sirkelramme -->
-            <circle cx="128" cy="128" r="110" stroke="currentColor" stroke-width="6" opacity=".25"/>
-          </svg>
-        </div>
-
-        <div class="hero-text">
-          <h1>Agent-grensesnitt aktivert</h1>
-          <p>
-            Åpne én dag av gangen, løs oppdraget og lås opp dagens nøkkel.
-            Enkelte dager har film, lyd eller kart. Klar for felt?
-          </p>
-          <div class="hero-badges">
-            <span class="chip">HUD • Satmap</span>
-            <span class="chip">Dekryptering</span>
-            <span class="chip">HUMINT • ELVES</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HUD-panel -->
-  <section class="panel">
-    <div class="hud">
-      <div class="item"><span class="dot"></span> PWA Online</div>
-      <div class="item">Startdato: <strong id="startDate">—</strong></div>
-      <div class="item">Lås: <strong id="unlockMode">—</strong></div>
-      <div class="item">Versjon: <strong id="appVersion">v1-light</strong></div>
-    </div>
-  </section>
 
   <!-- Kalender -->
   <main class="container">
@@ -188,50 +35,56 @@
     <section class="progress" id="progress"></section>
   </main>
 
-  <!-- Modal -->
+  <!-- Modal / Oppdragsark -->
   <div id="modal" class="modal hidden" aria-hidden="true">
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <button class="close" id="closeModal" aria-label="Lukk">✖</button>
       <h2 id="modalTitle">Oppdrag</h2>
-      <div class="meta" style="display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px;color:var(--muted);font-size:12px;">
-        <span class="tag" style="padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:#fff;">ELVES // FIELD</span>
-        <span class="tag" style="padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:#fff;">LIGHT HUD</span>
-      </div>
       <p id="mission"></p>
+
+      <!-- Media (video/lyd/bilde/YT/Vimeo) -->
       <div id="media"></div>
 
+      <!-- GATE: dagkode før innhold (valgfritt per dag via app.js) -->
+      <div class="answerbox hidden" id="gateBox">
+        <label for="gateInput" id="gatePrompt">Skriv dagens feltkode</label>
+        <input id="gateInput" placeholder="Kode fra konvolutt" />
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button id="submitGate">Lås opp</button>
+          <button id="cancelGate" class="ghost" type="button">Avbryt</button>
+        </div>
+        <p id="gateHint" style="color:var(--muted); font-size:12px; margin-top:8px;"></p>
+      </div>
+
+      <!-- Oppgaveliste -->
       <div class="taskbox" aria-labelledby="tasksLabel">
         <p class="label" id="tasksLabel">Oppgaver</p>
         <ul id="tasks"></ul>
       </div>
 
+      <!-- Svarfelt -->
       <div class="answerbox" id="answerBox">
         <label for="answer">Skriv kode / svar</label>
         <input id="answer" placeholder="f.eks. LYS eller 735" />
         <button id="submitAnswer">Bekreft</button>
       </div>
 
+      <!-- Belønning -->
       <div class="reward hidden" id="reward"></div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- Bunn -->
   <footer class="foot">
     <p>© <span id="yr"></span> ELVES INTELLIGENCE — PWA</p>
   </footer>
 
-  <!-- App -->
+  <!-- App-kode -->
   <script src="/app.js"></script>
 
-  <!-- HUD-speil av app.js-konstanter (valgfritt) -->
+  <!-- Init småverdier -->
   <script>
-    try {
-      document.getElementById('yr').textContent = new Date().getFullYear();
-      const START_DATE = "2025-12-01";   // match app.js
-      const UNLOCK_OVERRIDE = true;      // match app.js
-      document.getElementById('startDate').textContent = START_DATE;
-      document.getElementById('unlockMode').textContent = UNLOCK_OVERRIDE ? "TEST (åpen)" : "ADVENT (dag for dag)";
-    } catch(e){}
+    document.getElementById('yr').textContent = new Date().getFullYear();
   </script>
 
   <!-- Service Worker -->
