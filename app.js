@@ -9,6 +9,13 @@ const CONTENT = {
     { day:1, title:"Aktivering: Agent 11", mission:"Velkommen til ELVES. Lag ID-kort og fingeravtrykk.", tasks:["Signer agent-ID","Ta fingeravtrykk (mel + teip)","Velg kodenavn"], answer:{solution:"IS", reward:"NØKKEL: IS"}},
     { day:2, title:"Signal fra Nord", mission:"Dekrypter pigpen-melding.", tasks:["Bruk pigpen-tabell","Skriv svaret"], answer:{solution:"FROST", reward:"NØKKEL: FROST"}},
     { day:3, title:"Felt: Lysjakt", mission:"Finn tre ting som reflekterer lys ute. Rapporter.", tasks:["Finn 3 refleks","Ta bilde (frivillig)"], answer:{solution:"LYS", reward:"NØKKEL: LYS"}},
+     { day:8,
+    title:"Operasjon Frostblink",
+    mission:"Se briefen og dekrypter morse-signalet fra utkikkspunktet.",
+    tasks:["Se YouTube-briefen","Spill av morse-lyden","Oversett morse til bokstaver","Skriv kodeordet"],
+    media:{ type:"youtube", url:"https://youtu.be/XXXXXXXXXXX", caption:"Brief 08 — Frostblink" }, // bytt lenke
+    audioFallback:{ type:"audio", url:"/media/morse-dag8.m4a", caption:"Morse 08 — Lytt nøye" },   // last opp fil
+    answer:{ solution:"POLARIS", reward:"NØKKEL 08: POLARIS" }
   ]
 };
 
