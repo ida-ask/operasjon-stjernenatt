@@ -1,11 +1,14 @@
 
-:root{
-  --bg:#07111f;
-  --panel:#0d1b2a;
-  --ink:#e6f2ff;
-  --muted:#9bb6cf;
-  --accent:#64b5f6; /* isblå */
-  --line:#16324a;
+:root {
+  --font-body: "Special Elite", monospace;
+  --font-heading: "Special Elite", monospace;
+
+  --bg: #f4f2ec;
+  --panel: #faf8f2;
+  --ink: #201e1a;
+  --muted: #4c4a45;
+  --accent: #b33a3a;
+  --line: #d5d2c8;
 }
 
 /* Bakgrunn med subtil HUD-grid */
