@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ELVES Intelligence – HUMINT Access Portal</title>
+  <meta name="description" content="ELVES Intelligence – Feltportal for operative agenter (HUMINT)." />
+  <meta name="theme-color" content="#1c1c1c" />
+
+  <!-- iOS Home Screen Icon -->
+  <link rel="apple-touch-icon" href="icons/elves-logo.png" />
+  <meta name="apple-mobile-web-app-title" content="ELVES HUMINT" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Manifest (valgfritt) -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <!-- Font & Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --panel: #fffaf2;
+      --ink: #201d1a;
+      --accent: #b62d25;
+      --line: #d4ccc1;
+    }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Special Elite', monospace;
+      margin: 0;
+      padding: 0;
+    }
+    .hidden { display: none !important; }
+    .cardish {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 760px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    button {
+      font-family: inherit;
+      border-radius: 6px;
+      border: 1px solid var(--ink);
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 20px;
+      margin: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    h2, h3 { font-family: 'Special+Elite', monospace; margin-top: 0; }
+    h2 { font-size: 1.6em; text-transform: uppercase; }
+
+    /* Skjul "Jeg har allerede åpnet i dag" */
+    #skipLoginBtn { display: none !important; }
+  </style>
+  <!-- build: login-gated 2025-10-31 -->
+</head>
+<body>
+  <header class="cardish">
+    <h2>ELVES INTELLIGENCE</h2>
+    <p><strong>Operasjon Stjernenatt</strong> // HUMINT Access Portal</p>
+  </header>
+
+  <!-- 🕵️ Login -->
+  <section id="login" class="cardish">
+    <h3>FELTKODE</h3>
+    <p>Skriv dagens feltkode for å åpne oppdrag og rapportskjema.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <input id="agentNameInput" placeholder="Kodenavn (valgfritt)" style="flex:1;padding:8px;font-family:inherit;">
+      <input id="dayCodeInput" placeholder="Dagens feltkode (ELF1 / ELF2 ...)" style="flex:1;padding:8px;font-family:inherit;">
+    </div>
+    <div style="margin-top:10px;">
+      <button id="doLoginBtn">ÅPNE</button>
+      <button id="skipLoginBtn">Jeg har allerede åpnet i dag</button>
+    </div>
+    <p id="loginMsg" style="color:var(--accent);margin-top:8px;"></p>
+  </section>
+
+  <!-- 📡 Meldingsseksjon (skjules før login) -->
+  <section id="chat" class="cardish hidden">
+    <h3>ELVES · MELDINGER</h3>
+    <div id="inboxStatus" style="color:#777;font-size:0.9em;">Laster inn...</div>
+    <div id="inbox"></div>
+    <hr>
+    <label for="chatInput"><strong>Send melding (tekst)</strong></label>
+    <textarea id="chatInput" placeholder="Skriv status, spørsmål eller rapport..." style="width:100%;height:120px;"></textarea>
+    <label><strong>Legg ved fil (valgfritt)</strong></label>
+    <input type="file" id="fileInput" />
+    <br>
+    <button id="sendBtn">SEND</button>
+    <button id="clearBtn">TØM</button>
+  </section>
+
+  <!-- 📜 Historikk -->
+  <section id="history" class="cardish hidden">
+    <h3>TIDLIGERE RAPPORTER</h3>
+    <div id="reportHistory">Ingen rapporter enda.</div>
+  </section>
+
+  <!-- ⚙️ Admin (skjult) -->
+  <section id="admin" class="cardish hidden">
+    <h3>ADMINISTRASJON</h3>
+    <p>Beskyttet sone – krever PIN (egen løsning).</p>
+  </section>
+
+  <footer class="cardish" style="text-align:center;font-size:0.9em;">
+    © 2025 ELVES INTELLIGENCE — Frosthånden Counter-Ops Division
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
