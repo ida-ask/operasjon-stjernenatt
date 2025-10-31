@@ -21,15 +21,10 @@ const DAYS_CONTENT = [
   {
     day: 1,
     title: "Aktivering: Agent 11",
-    mission:
-      "Velkommen til ELVES. Lag agent-ID og fingeravtrykk. Velg også kodenavn.",
-    tasks: [
-      "Signer agent-ID",
-      "Ta fingeravtrykk (mel + teip)",
-      "Velg kodenavn og noter det"
-    ],
+    mission: "Velkommen til ELVES. Lag agent-ID og fingeravtrykk. Velg kodenavn.",
+    tasks: ["Signer agent-ID", "Ta fingeravtrykk (mel + teip)", "Velg kodenavn og noter det"],
     // media: { type: "image", url: "/media/agent-id-mal.png", caption: "Agent-ID mal" },
-    answer: { solution: "IS", reward: "NØKKEL: IS" }
+    answer: { solution: "IS", reward: "NØKKEL 01: IS" }
   },
   {
     day: 2,
@@ -37,33 +32,175 @@ const DAYS_CONTENT = [
     mission: "Dekrypter pigpen-melding og skriv kodeordet.",
     tasks: ["Bruk pigpen-tabell", "Skriv svaret i feltet"],
     // media: { type: "image", url: "/media/pigpen.png", caption: "Pigpen-tabell" },
-    answer: { solution: "FROST", reward: "NØKKEL: FROST" }
+    answer: { solution: "FROST", reward: "NØKKEL 02: FROST" }
   },
   {
     day: 3,
     title: "Felt: Lysjakt",
-    mission:
-      "Finn tre ting ute som reflekterer lys. Ta bilde (frivillig) og rapporter.",
+    mission: "Finn tre ting ute som reflekterer lys. Ta bilde (frivillig) og rapporter.",
     tasks: ["Finn 3 refleks", "Beskriv funn eller vis bilde"],
-    answer: { solution: "LYS", reward: "NØKKEL: LYS" }
+    answer: { solution: "LYS", reward: "NØKKEL 03: LYS" }
   },
-
-  // EKSEMPEL på dag med video + lydfallback (rediger fritt / slett om du ikke vil bruke)
-  // {
-  //   day: 8,
-  //   title: "Operasjon Frostblink",
-  //   mission: "Se briefen og dekrypter morse-signalet.",
-  //   tasks: [
-  //     "Se YouTube-briefen",
-  //     "Spill av morse-lyden",
-  //     "Oversett til bokstaver (— = strek, · = prikk)",
-  //     "Skriv kodeordet"
-  //   ],
-  //   media: { type: "youtube", url: "https://youtu.be/XXXXXXXXXXX", caption: "Brief 08 — Frostblink" },
-  //   audioFallback: { type: "audio", url: "/media/morse-dag8.m4a", caption: "Morse 08 — Lytt nøye" },
-  //   answer: { solution: "POLARIS", reward: "NØKKEL 08: POLARIS" }
-  // },
+  {
+    day: 4,
+    title: "Spor i snø",
+    mission: "Identifiser tre ulike spor (dyr, menneske, kjøretøy) i nærmiljøet.",
+    tasks: ["Finn 3 spor", "Skisser eller beskriv", "Rapporter hva du tror har skjedd"],
+    answer: { solution: "Spor", reward: "NØKKEL 04: SPOR" }
+  },
+  {
+    day: 5,
+    title: "Morse fra utkikket",
+    mission: "Lytt til morse og dekrypter. Tips: — = strek, · = prikk.",
+    tasks: ["Spill av lyd", "Skriv ned streker/prikker", "Oversett til bokstaver"],
+    media: { type: "audio", url: "/media/morse-dag5.m4a", caption: "Morse 05" },
+    answer: { solution: "ELV", reward: "NØKKEL 05: ELV" }
+  },
+  {
+    day: 6,
+    title: "Kompasskurs",
+    mission: "Gå 50 m nord, 30 m øst, 20 m sør. Hva er objektet nærmest slutten?",
+    tasks: ["Bruk kompass/app", "Noter sluttpunkt", "Skriv navnet på objektet"],
+    answer: { solution: "GRAN", reward: "NØKKEL 06: GRAN" }
+  },
+  {
+    day: 7,
+    title: "Kald kryptering",
+    mission: "En enkel Caesar +3: ALP blir DSO. Dekrypter meldingen: ‘VLMHQQDW’",
+    tasks: ["Bruk −3 på hver bokstav", "Skriv kodeordet"],
+    answer: { solution: "JULENATT", reward: "NØKKEL 07: NATT" }
+  },
+  {
+    day: 8,
+    title: "Operasjon Frostblink",
+    mission: "Se briefen og dekrypter morse-signalet.",
+    tasks: ["Se video", "Spill av morse-lydelement", "Skriv kodeordet"],
+    media: { type: "youtube", url: "https://youtu.be/XXXXXXXXXXX", caption: "Brief 08 — Frostblink" },
+    audioFallback: { type: "audio", url: "/media/morse-dag8.m4a", caption: "Morse 08 — Lytt nøye" },
+    answer: { solution: "POLARIS", reward: "NØKKEL 08: POLARIS" }
+  },
+  {
+    day: 9,
+    title: "Kuldekjede",
+    mission: "Finn 4 ting hjemme som isolerer varme. Ranger dem best→dårligst.",
+    tasks: ["Finn 4 ting", "Ranger isolasjon", "Rapporter beste ting"],
+    answer: { solution: "ULL", reward: "NØKKEL 09: ULL" }
+  },
+  {
+    day: 10,
+    title: "Skyggejakt",
+    mission: "Gå ut når det er lys og mål din egen skygge. Hvor lang er den?",
+    tasks: ["Mål i cm", "Skriv tallet (kun tall)"],
+    answer: { solution: "100", reward: "NØKKEL 10: LOKASJON A" } // endre tall etter måling om du vil bruke ekte kontroll
+  },
+  {
+    day: 11,
+    title: "Kodeskrift",
+    mission: "Les en kort setning skrevet i speil. Skriv nøkkelordet.",
+    tasks: ["Hold arket foran speil", "Skriv kodeordet"],
+    // media: { type: "image", url: "/media/speiltekst.png", caption: "Speiltekst" },
+    answer: { solution: "ELVES", reward: "NØKKEL 11: ELVES" }
+  },
+  {
+    day: 12,
+    title: "Kart og kompass",
+    mission: "Studer kartutsnitt og finn høyeste punkt i ruten.",
+    tasks: ["Se kart", "Skriv navnet/høyden"],
+    media: { type: "image", url: "/media/kart-dag12.png", caption: "Kart 12" },
+    answer: { solution: "TOPP", reward: "NØKKEL 12: TOPP" }
+  },
+  {
+    day: 13,
+    title: "Lydbilde",
+    mission: "Stå stille i 2 min. Noter 5 lyder du hører. Hvilken var svakest?",
+    tasks: ["Noter 5 lyder", "Velg svakeste", "Skriv ordet"],
+    answer: { solution: "VIND", reward: "NØKKEL 13: VIND" }
+  },
+  {
+    day: 14,
+    title: "Krysspeiling",
+    mission: "Finn to punkter i horisonten. Estimer vinkelen mellom dem.",
+    tasks: ["Velg to punkter", "Estimer vinkel (grader)", "Skriv tallet"],
+    answer: { solution: "60", reward: "NØKKEL 14: VINKEL 60" } // valgfritt tall
+  },
+  {
+    day: 15,
+    title: "Kuldeindeks",
+    mission: "Regn ut følt temperatur: Tfølt = T − (v/5). T=−4°C, v=10 m/s.",
+    tasks: ["Regn ut", "Skriv tallet (med minus)"],
+    answer: { solution: "-6", reward: "NØKKEL 15: KALD" }
+  },
+  {
+    day: 16,
+    title: "Usynlig blekk",
+    mission: "Skriv hemmelig beskjed med sitronsaft. Varm forsiktig for å lese.",
+    tasks: ["Lag usynlig blekk", "Avslør beskjed", "Skriv nøkkelordet"],
+    answer: { solution: "STJERNE", reward: "NØKKEL 16: STJERNE" }
+  },
+  {
+    day: 17,
+    title: "Sifre fra naturen",
+    mission: "Tell antall trinn til postkassa × antall vinduer på fasaden.",
+    tasks: ["Tell trinn", "Tell vinduer", "Multipliser", "Skriv tallet"],
+    answer: { solution: "24", reward: "NØKKEL 17: 24" } // juster til faktisk produkt
+  },
+  {
+    day: 18,
+    title: "Frosthånd-sending",
+    mission: "Se denne videoen. En detalj avslører et sted.",
+    tasks: ["Se video", "Finn stedet", "Skriv stedsnavn"],
+    media: { type: "vimeo", url: "https://vimeo.com/123456789", caption: "Avlyttet sending 18" },
+    answer: { solution: "BRO", reward: "NØKKEL 18: BRO" }
+  },
+  {
+    day: 19,
+    title: "Snøkrystall",
+    mission: "Finn en ‘Y’-form i en snøkrystall/isbord (eller bilde). Hva ligner den?",
+    tasks: ["Observer", "Beskriv kort", "Skriv nøkkelord"],
+    answer: { solution: "GREIN", reward: "NØKKEL 19: GREIN" }
+  },
+  {
+    day: 20,
+    title: "Cifretegn",
+    mission: "Dekrypter tall-kode (A1Z26): 19-20-10-5-18-14-5.",
+    tasks: ["A=1, B=2 ...", "Skriv ordet"],
+    answer: { solution: "STJERNE", reward: "NØKKEL 20: STJERNE" }
+  },
+  {
+    day: 21,
+    title: "Nattpatrulje",
+    mission: "Gå en liten runde i mørket (med voksen). Noter 3 lys du ser.",
+    tasks: ["Noter 3 lyskilder", "Hvilken blinket raskest?"],
+    answer: { solution: "SYKKELLYS", reward: "NØKKEL 21: LYS" }
+  },
+  {
+    day: 22,
+    title: "Siste nøkler",
+    mission: "Sett sammen 3 valgte nøkler fra tidligere dager til en setning.",
+    tasks: ["Velg 3 nøkler", "Lag setning", "Skriv kodeordet"],
+    answer: { solution: "BLIKK", reward: "NØKKEL 22: BLIKK" }
+  },
+  {
+    day: 23,
+    title: "Operasjon Sikkerhet",
+    mission: "Sjekk husets ‘perimeter’: dører/vinduer er lukket og låst. Bekreft.",
+    tasks: ["Sjekk alle dører", "Sjekk alle vinduer", "Rapporter"],
+    answer: { solution: "KLART", reward: "NØKKEL 23: KLAR" }
+  },
+  {
+    day: 24,
+    title: "Stjernenatt",
+    mission: "Storaksjon! Bruk alle nøkler/hint til å finne hemmelig gjemmested. Si koden ved funn.",
+    tasks: [
+      "Les sammen nøkkelord (IS, FROST, LYS, ...)",
+      "Gå til stedet hintene peker mot",
+      "Si koden høyt for å få pakken"
+    ],
+    // media: { type: "video", url: "/media/julehilsen.mp4", caption: "Siste briefing" },
+    answer: { solution: "GODJUL", reward: "GOD JUL, AGENT!" }
+  }
 ];
+
 
 /* ========== SLUTT: EDITERBARE DELER ========== */
 
