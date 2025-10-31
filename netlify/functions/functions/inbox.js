@@ -1,31 +1,34 @@
 // netlify/functions/inbox.js
-import { Blobs } from '@netlify/blobs';
-
-export default async (req) => {
-  const blobs = new Blobs({ siteID: process.env.SITE_ID });
+// Bruker context.blobs i stedet for new Blobs(...)
+export default async (req, context) => {
+  const store = context.blobs; // <— riktig måte i dagens Netlify runtime
 
   if (req.method === 'GET') {
-    const keys = await blobs.list({ prefix: 'inbox/' });
+    // Hent alle meldinger som er publisert (evt. fremtidige — vi filtrerer her også)
+    const { blobs } = await store.list({ prefix: 'inbox/' }); // { blobs: [{ key, size, ...}, ...] }
     const items = [];
-    for (const k of keys.blobs) {
-      const obj = await blobs.get(k.key, { type: 'json' });
+    for (const b of blobs) {
+      const obj = await store.get(b.key, { type: 'json' }); // returnerer JSON eller null
       if (obj) items.push(obj);
     }
     const now = Date.now();
-    // Filtrer bort fremtidsmeldinger server-side
-    const visible = items.filter(m => !m.availableAt || m.availableAt <= now)
-                         .sort((a,b)=>(a.ts||0)-(b.ts||0));
+    const visible = items
+      .filter(m => !m.availableAt || m.availableAt <= now)
+      .sort((a, b) => (a.ts || 0) - (b.ts || 0));
+
     return new Response(JSON.stringify(visible), {
       status: 200,
-      headers: { 'content-type': 'application/json' }
+      headers: { 'content-type': 'application/json' },
     });
   }
 
   if (req.method === 'POST') {
+    // Enkelt PIN-sjekk (admin.html sender denne i header)
     const pin = req.headers.get('x-admin-pin') || '';
-    if (pin !== process.env.INBOX_PIN) {
+    if (pin !== (process.env.INBOX_PIN || '')) {
       return new Response('Unauthorized', { status: 401 });
     }
+
     const body = await req.json();
     const id = crypto.randomUUID();
     const item = {
@@ -33,17 +36,20 @@ export default async (req) => {
       from: body.from || 'ELVES HQ',
       title: body.title || '',
       text: body.text || '',
-      media: body.media || null,
-      // availableAt: tidspunkt hvor meldingen blir synlig (valgfritt)
+      media: body.media || null, // { type:'image|audio|video|youtube|vimeo', url:'...', thumb_url?, caption? }
       availableAt: typeof body.availableAt === 'number' ? body.availableAt : null,
-      ts: body.ts || Date.now()
+      ts: body.ts || Date.now(),
     };
-    await blobs.set(`inbox/${id}.json`, JSON.stringify(item), { contentType: 'application/json' });
-    return new Response(JSON.stringify({ ok:true, id }), {
+
+    await store.set(`inbox/${id}.json`, JSON.stringify(item), {
+      contentType: 'application/json',
+    });
+
+    return new Response(JSON.stringify({ ok: true, id }), {
       status: 200,
-      headers: { 'content-type': 'application/json' }
+      headers: { 'content-type': 'application/json' },
     });
   }
 
   return new Response('Method not allowed', { status: 405 });
-}
+};
