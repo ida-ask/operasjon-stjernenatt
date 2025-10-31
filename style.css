@@ -79,3 +79,74 @@ html,body{
 
 /* Footer */
 .foot{ color:var(--muted); border-top:1px solid var(--line) }
+
+/* === Cold War dossier style overrides === */
+:root {
+  --font-body: "Special Elite", monospace;
+  --font-heading: "Special Elite", monospace;
+  --bg: #f4f2ec;
+  --panel: #faf8f2;
+  --ink: #201e1a;
+  --muted: #4c4a45;
+  --accent: #b33a3a;
+  --line: #d5d2c8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  background-image: url("/paper-texture.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-blend-mode: multiply;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sub {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Ark/rapport-look */
+.card, .sheet, .panel .hud, .answerbox, .taskbox {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(0,0,0,.05), 0 4px 8px rgba(0,0,0,.04);
+}
+
+.answerbox button {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(179,58,58,.3);
+}
+
+.reward {
+  background: #fff6f6;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-heading);
+}
+
+.topbar {
+  background: var(--panel);
+  border-bottom: 2px solid var(--line);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+
+.foot {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
