@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Operasjon Stjernenatt</title>
+  <meta name="theme-color" content="#0b1220">
+  <!-- iOS PWA -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Operasjon Stjernenatt</h1>
+    <p class="sub">ELVES Intelligence // Classified</p>
+  </header>
+
+  <main class="container">
+    <section>
+      <p>Åpne én dag av gangen, løs oppdraget og lås opp nøkkelen. Denne versjonen er <strong>uten byggsteg</strong> og kan lastes direkte til Netlify.</p>
+    </section>
+    <section id="calendar" class="grid"></section>
+    <section class="progress" id="progress"></section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="sheet">
+      <button class="close" id="closeModal" aria-label="Lukk">✖</button>
+      <h2 id="modalTitle"></h2>
+      <p id="mission"></p>
+      <div id="media"></div>
+      <div class="taskbox">
+        <p class="label">Oppgaver</p>
+        <ul id="tasks"></ul>
+      </div>
+      <div class="answerbox" id="answerBox">
+        <label for="answer">Skriv kode / svar</label>
+        <input id="answer" placeholder="f.eks. LYS eller 735">
+        <button id="submitAnswer">Bekreft</button>
+      </div>
+      <div class="reward hidden" id="reward"></div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <p>© <span id="yr"></span> ELVES INTELLIGENCE — PWA</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js'); });
+    }
+  </script>
+</body>
+</html>
