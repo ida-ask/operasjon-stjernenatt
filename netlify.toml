@@ -1,8 +1,16 @@
 [build]
-  publish = "public"
-  functions = "netlify/functions"
+  publish = "public"                # her ligger index.html, css, js, icons, osv.
+  functions = "netlify/functions"   # her ligger serverless-funksjonene dine
 
+# Hvis du vil treffe funksjoner via /api/* (valgfritt men ryddig):
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Hvis appen er en SPA (client-side routing), behold denne:
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
