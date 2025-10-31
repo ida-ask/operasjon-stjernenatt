@@ -150,3 +150,44 @@ h1, h2, h3 {
   color: var(--muted);
   font-size: 13px;
 }
+/* === Cold War dossier: hard overstyring === */
+:root{
+  --font-body: "Special Elite", monospace;
+  --font-heading: "Special Elite", monospace;
+  --bg:#f4f2ec; --panel:#faf8f2; --ink:#201e1a;
+  --muted:#4c4a45; --accent:#b33a3a; --line:#d5d2c8;
+}
+
+/* Bakgrunn og tekst (overstyr mørke gradienter) */
+html, body{
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+  font-family: var(--font-body);
+}
+
+/* Kort, panel, modal – vekk med mørke bakgrunner */
+.card, .panel .hud, .taskbox, .answerbox, .sheet{
+  background: var(--panel) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+/* Topplinje og footer i lys mappe-stil */
+.topbar{ background: var(--panel) !important; border-bottom: 2px solid var(--line) !important; }
+.foot{ border-top: 1px solid var(--line); color: var(--muted); }
+
+/* Knapper / bekreft */
+.answerbox button{
+  background: var(--accent) !important;
+  color: #fff !important;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* Overskrifter */
+h1, h2, h3{ font-family: var(--font-heading); text-transform: uppercase; letter-spacing:.08em; }
+
+/* Belønning */
+.reward{ background:#fff6f6; border:1px solid var(--accent); color:var(--accent); }
+
