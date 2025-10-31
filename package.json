@@ -1,0 +1,8 @@
+{
+  "name": "elves-humint-all-meter",
+  "version": "1.5.0",
+  "private": true,
+  "dependencies": {
+    "@netlify/blobs": "^6.4.0"
+  }
+}
